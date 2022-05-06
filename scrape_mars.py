@@ -90,7 +90,7 @@ def scrape_info():
         hemisphere_img_url = mars_hemp_url + soup.find_all('img')[4]['src']
 
         # Store data in a dictionary   
-        hemisphere_list.append({'title': hemisphere_title.replace(" Enhanced", ''), 'url': hemisphere_img_url})
+        hemisphere_list.append({'title': hemisphere_title, 'url': hemisphere_img_url})
 
 
     browser.quit()
