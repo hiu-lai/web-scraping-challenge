@@ -2,7 +2,7 @@ from splinter import Browser
 from bs4 import BeautifulSoup as bs
 import time
 from webdriver_manager.chrome import ChromeDriverManager
-
+import pandas as pd
 
 def scrape_info():
     # Set up Splinter
@@ -43,18 +43,32 @@ def scrape_info():
 
     browser.quit()
 
-
-    # #BROWSER THREE #
-    # mars_url = 'https://galaxyfacts-mars.com/'
-    # tables = pd.read_html(mars_url)
-    # df_1 = tables[0]
-    # df_2 = tables[1]
+    #BROWSER THREE #
+    mars_url = 'https://galaxyfacts-mars.com/'
+    tables = pd.read_html(mars_url)
+    df_1 = tables[0]
+    df_2 = tables[1]
     # mars_df = pd.concat([df_1, df_2])
-    # mars_df.columns = ['Description', 'Mars', 'Earth']
-    # mars_df = mars_df.iloc[1:]
-    # mars_df.set_index('Description', inplace=True)
+    mars_df = tables[0]
+    mars_df.columns = ['Description', 'Mars', 'Earth']
+    mars_df = mars_df.iloc[1:]
+    mars_df= mars_df.reset_index(drop=True)
+    
+    # mars_dict = mars_df.to_dict('split')
+    # mars_dict = mars_df.to_dict('list')
+    import numpy as np
+    len(mars_df)
+    mars_table = []
+    for i in np.arange(len(mars_df)):
+        mars_desc = mars_df['Description'][i]
+        mars_val = mars_df['Mars'][i]
+        earth_val = mars_df['Earth'][i]
+        mars_table.append({'Description': mars_desc, 'Mars': mars_val, 'Earth': earth_val})
+    mars_table
 
-    # # BROWSER FIVE #
+
+
+    # # BROWSER FOUR #
     browser = Browser('chrome', **executable_path, headless=False)    
     mars_hemp_url = 'https://marshemispheres.com/'
     browser.visit(mars_hemp_url)
@@ -86,7 +100,8 @@ def scrape_info():
         "title": news_title,
         "preview": news_p,
         "img_url": featured_link,
-        "hemisphere": hemisphere_list
+        "hemisphere": hemisphere_list,
+        "mars_table": mars_table
     }
 
     # Return results

@@ -5,20 +5,39 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Costa Rica Weather</title>
+  <title>Mission to Mars</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 </head>
 
 <body>
   <div class="container-fluid">
     <div class="jumbotron text-center">
-      <h1>Visit the...</h1>
-      <p>Beach. Rainforest. Volcano. Tree House. Sloths.</p>
-      <p><a class="btn btn-primary btn-lg" href="/scrape" role="button">Get Data!</a></p>
+      <h1>Mission to Mars</h1>
+      <p><a class="btn btn-primary btn-lg" href="/scrape" role="button">Scrape New Data</a></p>
     </div>
-    <h2>The typical weather in Costa Rica is:</h2>
-    <h3>Max Temp: {{ mission_to_mars.title }}</h3>
-    <h3>Min Temp: {{ mission_to_mars.preview }}</h3>
+	<h2>Latest Mars News</h2>
+    <h4><strong>{{ mission_to_mars.title }}</strong></h4>
+	<p>{{ mission_to_mars.preview }}</p>
+	<br>
+	<div class="container-sm">
+		<div class = "row">
+			<div class="col-lg-7">
+				<h2>Featured Mars Image</h2>
+				<img src="{{ mission_to_mars.img_url }}" alt="Featured Mars">
+			</div>
+		</div>
+         {% for data in mars_table %}
+          <div class="col-lg-5">
+              <div class="card" style="width: 20rem;">
+                  <div class="card-body">
+                    <h4 class="card-title">{{ data.description }}</h4>
+                    <h6 class="card-subtitle mb-2 text-muted">Cost: {{ data.Mars }}</h6>
+                    <p class="card-text">Potential Revenue: {{ data.Earth}}</p>
+                  </div>
+                </div>
+            </div>
+            {% endfor %}
+	</div>
   </div>
   </div>
 </body>
